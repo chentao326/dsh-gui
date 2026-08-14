@@ -58,5 +58,15 @@ let ports3 = discoverPorts(settings: settings3, psOut: psSample, lsofOut: lsofSa
 check("discover order url->port->3080->dsh-lsof",
       ports3 == [9090, 8080, 3080, 22]) // 22: pid 12456 (dsh) 监听; 12454 的 3080 已去重; 12455 非 dsh
 
+// ── buildServerCommand ───────────────────────────────────────────
+let cmd1 = buildServerCommand(cli: "/usr/local/bin/dsh", port: 0)
+check("direct cli command",
+      cmd1.executable == "/usr/local/bin/dsh" && cmd1.args == ["web", "--port", "0"])
+let cmd2 = buildServerCommand(cli: "/Users/x/.npm/_npx/abc/node_modules/@deepseek-ai/dsh/lib/bin.js", port: 3080)
+check("node+js command",
+      cmd2.executable == "/usr/bin/env" &&
+      cmd2.args == ["node", "/Users/x/.npm/_npx/abc/node_modules/@deepseek-ai/dsh/lib/bin.js",
+                    "web", "--port", "3080"])
+
 print(failures == 0 ? "ALL PASS" : "\(failures) FAILURES")
 exit(failures == 0 ? 0 : 1)
