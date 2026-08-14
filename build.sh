@@ -11,10 +11,15 @@ mkdir -p build/modcache
 echo "SDK: $SDK"
 
 if [ "${1:-}" = "--test" ]; then
+  chmod +x Tests/fake-dsh.sh
   swiftc -sdk "$SDK" -module-cache-path build/modcache \
     -Xcc -fmodules-cache-path="$PWD/build/modcache" \
     Sources/Core.swift Tests/main.swift -o build/tests 2>&1 | head -40
   ./build/tests
+  swiftc -sdk "$SDK" -module-cache-path build/modcache \
+    -Xcc -fmodules-cache-path="$PWD/build/modcache" -parse-as-library \
+    Sources/Core.swift Tests/spawn.swift -o build/spawn-test 2>&1 | head -40
+  ./build/spawn-test "$PWD/Tests/fake-dsh.sh"
   exit $?
 fi
 
