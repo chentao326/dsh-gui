@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <style>
+    .bg { fill: none; }
+    .box { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1.5; rx: 10; }
+    .dash { stroke-dasharray: 6 4; }
+    .text { fill: #24292f; font-size: 14px; font-weight: 600; }
+    .sub  { fill: #57606a; font-size: 11.5px; }
+    .acc  { fill: #4d7cfe; font-weight: 700; }
+    .accbg { fill: #eef2ff; stroke: #4d7cfe; stroke-width: 1.5; rx: 10; }
+    .arrow { stroke: #57606a; stroke-width: 1.6; fill: none; }
+    .lbl   { fill: #57606a; font-size: 11px; font-style: italic; }
+    .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    @media (prefers-color-scheme: dark) {
+      .box { fill: #161b22; stroke: #30363d; }
+      .text { fill: #e6edf3; }
+      .sub, .lbl { fill: #8b949e; }
+      .acc  { fill: #79a0ff; }
+      .accbg { fill: #1c2333; stroke: #4d7cfe; }
+      .arrow { stroke: #8b949e; }
+    }
+  </style>
+
+  <!-- Row 1 -->
+  <rect class="box" x="40"  y="40"  width="210" height="84"/>
+  <text class="text" x="60" y="70">DSH.app</text>
+  <text class="sub" x="60" y="90">Swift + AppKit · WebKit</text>
+  <text class="sub" x="60" y="106">double-click to start</text>
+
+  <rect class="box" x="310" y="40" width="280" height="84"/>
+  <text class="text" x="330" y="70">Server discovery</text>
+  <text class="sub mono" x="330" y="92">settings.json → 3080 → lsof scan</text>
+  <text class="sub" x="330" y="108">candidate ports, in priority order</text>
+
+  <rect class="box" x="650" y="40" width="280" height="84"/>
+  <text class="text" x="670" y="70">Fingerprint probe</text>
+  <text class="sub mono" x="670" y="92">GET / → window.__DSH_BOOT__</text>
+  <text class="sub" x="670" y="108">confirms a real DSH server</text>
+
+  <rect class="box" x="960" y="40" width="100" height="84"/>
+  <text class="acc" x="985" y="86">found?</text>
+
+  <path class="arrow" d="M250 82 H310"/>
+  <path class="arrow" d="M590 82 H650"/>
+  <path class="arrow" d="M930 82 H960"/>
+
+  <!-- Row 2 -->
+  <rect class="box dash" x="310" y="220" width="280" height="84"/>
+  <text class="text" x="330" y="250">Spawn dsh web</text>
+  <text class="sub mono" x="330" y="272">dsh web --port N</text>
+  <text class="sub" x="330" y="288">N = 0 lets the OS pick a port</text>
+
+  <rect class="box dash" x="650" y="220" width="280" height="84"/>
+  <text class="text" x="670" y="250">Parse stdout URL</text>
+  <text class="sub mono" x="670" y="272">dsh web: http://127.0.0.1:&lt;port&gt;</text>
+  <text class="sub" x="670" y="288">the readiness line is the contract</text>
+
+  <!-- Row 3 -->
+  <rect class="accbg" x="310" y="400" width="620" height="84"/>
+  <text class="acc" x="330" y="430">WKWebView window</text>
+  <text class="sub mono" x="330" y="452">loads http://127.0.0.1:&lt;port&gt;</text>
+  <text class="sub" x="330" y="468">built-in engine — no bundled browser</text>
+
+  <rect class="box dash" x="40" y="400" width="210" height="84"/>
+  <text class="text" x="60" y="430">Quit (Cmd+Q)</text>
+  <text class="sub mono" x="60" y="452">SIGTERM → SIGKILL</text>
+  <text class="sub" x="60" y="468">process group, self-spawned only</text>
+
+  <!-- arrows row1 -> row2 -->
+  <path class="arrow" d="M1010 124 V 180 H 450 V 220"/>
+  <text class="lbl" x="760" y="174">not found →</text>
+
+  <path class="arrow" d="M1010 124 V 340 H 620 V 400"/>
+  <text class="lbl" x="880" y="334">found →</text>
+
+  <!-- arrows row2 -> row3 -->
+  <path class="arrow" d="M590 262 H650"/>
+  <path class="arrow" d="M790 304 V 400"/>
+
+  <!-- app -> quit -->
+  <path class="arrow dash" d="M145 124 V 400"/>
+  <text class="lbl" x="158" y="270">on quit</text>
+</svg>
